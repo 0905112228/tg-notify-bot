@@ -2,5 +2,11 @@ services:
   - type: web
     name: tg-notify-bot
     env: python
+    plan: free
     buildCommand: ""
-    startCommand: "python main.py"
+    startCommand: python main.py
+    envVars:
+      - key: BOT_TOKEN
+        value: 7881408275:AAFQmMklumEhUaCwlFxTElHAhGH2Vrm5zmA
+      - key: CHANNEL_ID
+        value: -1002310828032
