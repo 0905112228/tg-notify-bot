@@ -1,11 +1,6 @@
 services:
   - type: web
-    name: landgod-bot
+    name: tg-notify-bot
     env: python
-    buildCommand: "pip install -r requirements.txt"
+    buildCommand: ""
     startCommand: "python main.py"
-    envVars:
-      - key: BOT_TOKEN
-        sync: false
-      - key: CHANNEL_ID
-        sync: false
