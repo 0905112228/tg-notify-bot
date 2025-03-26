@@ -1,6 +1,6 @@
+from flask import Flask, request
 import os
 import requests
-from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -18,16 +18,18 @@ def send_message(text):
     except Exception as e:
         print("Error sending message:", e)
 
-@app.route("/", methods=["GET"])
-def home():
-    return "土地公推播系統啟動成功"
+# 新增這兩個 route，解決 404 問題
+@app.route('/', methods=['GET'])
+def index():
+    return '土地公上線囉！'
 
-@app.route("/notify", methods=["POST"])
-def notify():
-    data = request.json
-    message = data.get("message", "沒有內容")
-    send_message(message)
-    return "OK"
+@app.route('/', methods=['POST'])
+def webhook():
+    data = request.get_json()
+    if data and 'message' in data and 'text' in data['message']:
+        text = data['message']['text']
+        send_message(f"土地公收到訊息：{text}")
+    return 'OK'
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+if __name__ == '__main__':
+    app.run(debug=True)
